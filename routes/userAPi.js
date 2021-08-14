@@ -1,5 +1,5 @@
-const  express = require('express');
-const router  = express.Router();
+const express = require('express');
+const router = express.Router();
 // reuire model
 const User = require('../models/userSchema')
 
@@ -26,7 +26,7 @@ router.post('/users', async (req, res) => {
 })
 // update user by id
 router.put('/users/:id', async (req, res) => {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.json(updatedUser);
 })
 
@@ -36,5 +36,38 @@ router.delete('/users/:id', async (req, res) => {
     res.json({ message: 'deleted user successfully' });
 })
 
+// affect todo to user
+router.put('/users/affect/:idUser/:idTodo', async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.idUser, {$push : {todos : req.params.idTodo}}, { new: true })
+        res.json(updatedUser);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
+// desafect id to user
+router.put('/users/desaffect/:idUser/:idTodo', async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.idUser, {$pull : {todos : req.params.idTodo}}, { new: true })
+        res.json(updatedUser);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
 
-module.exports = router ;
+// get all user
+router.get('/users-with-todos', async (req, res) => {
+    try {
+        const users = await User.find({}).populate('todos', "name -_id createdAt");
+        res.json(users);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
+module.exports = router;
