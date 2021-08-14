@@ -15,7 +15,7 @@ router.get('/todos', async (req, res) => {
     }
   })
   //get one todo by id
-  router.get('/todo/:id', async (req, res) => {
+  router.get('/todos/:id', async (req, res) => {
     try {
       const todoId = await ToDo.findById(req.params.id)
       res.json(todoId);
@@ -28,9 +28,8 @@ router.get('/todos', async (req, res) => {
   // add one todo
   router.post('/todos', async (req, res) => {
     try {
-      console.log(req.body);
       const createdTodo = await ToDo.create(req.body)
-      res.json({ message: 'todo add' });
+      res.json(createdTodo);
     }
     catch (err) {
       console.log(err);
@@ -38,9 +37,9 @@ router.get('/todos', async (req, res) => {
     }
   })
   //update todo by id
-  router.put('/todo/:id', async (req, res) => {
+  router.put('/todos/:id', async (req, res) => {
     try {
-      const updatedTodo = await ToDo.findByIdAndUpdate(req.params.id, req.body, {new:true})
+      const updatedTodo = await ToDo.findByIdAndUpdate(req.params.id, req.body, {new: true})
       res.json(updatedTodo);
     }
     catch (err) {
@@ -49,7 +48,7 @@ router.get('/todos', async (req, res) => {
     }
   })
   // delete todo by id
-  router.delete('/todo/:id', async (req, res) => {
+  router.delete('/todos/:id', async (req, res) => {
     try {
       const deletedTodo = await ToDo.findByIdAndDelete(req.params.id)
       res.json({ message: 'Todo deleted successfuly' });
