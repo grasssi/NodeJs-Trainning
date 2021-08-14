@@ -17,7 +17,8 @@ app.get('/', (req, res) => {
 // require routes 
 const userApi = require('./routes/userAPi');
 app.use('', userApi)
-
+const todoApi = require('./routes/todoAPI')
+app.use('',todoApi)
 app.listen(port, () => {
     console.log(`Application listening at http://localhost:${port}`)
 })
