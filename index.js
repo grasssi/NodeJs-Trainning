@@ -5,9 +5,9 @@ const port = 3000
 // database connection 
 require('./database/connect')
 
-
 //Morgan Config
 app.use(morgan('dev'))
+
 // config body parser
 app.use(express.json())
 

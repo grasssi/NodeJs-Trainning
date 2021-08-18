@@ -7,6 +7,20 @@ router.post('/email', async (req, res) => {
   try {
   const createdEmail = await email.create(req.body)
   res.json(createdEmail);
+  const {to, subject, text } = req.body;
+  const mailData = {
+      from: createdEmail.from,
+      to: createdEmail.to,
+      subject:createdEmail.subject,
+      text: createdEmail.text,
+      html: createdEmail.html,
+  }
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+        return console.log(error);
+    }
+    res.status(200).send({ message: "Mail send", message_id: info.messageId });
+});
 }
 catch (err) {
   console.log(err);
