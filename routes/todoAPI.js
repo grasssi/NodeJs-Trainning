@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ToDo = require('../models/todoSchema')
+const ToDo = require('../models/sendEmailSchema')
 
 //get all todo
 router.get('/todos', async (req, res) => {
