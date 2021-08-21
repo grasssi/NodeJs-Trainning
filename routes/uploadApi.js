@@ -12,16 +12,17 @@ const myStorage = multer.diskStorage({
         cb(null, newFilename)
     }
 })
-const fileFilterFunction =(req, file, cb)=>{
-const fileExt = path.extname(file.originalname);
-const allowedExt = ['.jpg', '.png', '.gif','.jpeg']
-cb(null, allowedExt.includes(fileExt))
+const fileFilterFunction = (req, file, cb) => {
+    const fileExt = path.extname(file.originalname);
+    const allowedExt = ['.jpg', '.png', '.gif', '.jpeg', '.zip']
+    cb(null, allowedExt.includes(fileExt))
 }
-const maxSize = 1   *1024*1024;
-const Multer = multer({ storage: myStorage , fileFilter: fileFilterFunction , limits: { fileSize: maxSize }
+const maxSize = 1 * 1024 * 1024;
+const Multer = multer({
+    storage: myStorage, fileFilter: fileFilterFunction, limits: { fileSize: maxSize }
 });
 
-router.post('/upload', Multer.single('file'), async (req, res) => {
+router.post('/upload', Multer.single('file'), (req, res) => {
     if (req.file !== undefined) {
         res.send({ message: 'File uploaded succefully' })
     } else {
@@ -29,4 +30,15 @@ router.post('/upload', Multer.single('file'), async (req, res) => {
         res.status(400).json({ message: 'File not uploaded' })
     }
 });
+
+
+router.post('/uploadMultiple', Multer.array('file', 3), (req, res) => {
+    if (req.files.length !== 0) {
+        res.send({ message: 'File uploaded succefully' })
+    } else {
+
+        res.status(400).json({ message: 'File not uploaded' })
+    }
+});
+
 module.exports = router;
