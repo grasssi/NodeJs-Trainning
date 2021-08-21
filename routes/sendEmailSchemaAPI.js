@@ -94,7 +94,7 @@ router.post('/html-mail/v3/:name', async (req, res) => {
       from: 'AngularGrassi@gmail.com',
       to: 'AngularGrassi@gmail.com',
       subject: 'subject',
-      html: ejs.render(name)
+      html: ejs.render(content,{name})
     };
 
     const info = await transporter.sendMail(mailData);
