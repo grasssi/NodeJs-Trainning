@@ -1,5 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
+require('dotenv').config()
+
 const app = express()
 const port = 3000
 // database connection 
@@ -18,10 +20,14 @@ app.get('/', (req, res) => {
 const userApi = require('./routes/userAPi');
 const todoApi = require('./routes/todoAPI');
 const emailApi = require('./routes/sendEmailSchemaAPI');
+const tutoApi = require('./routes/tutorialAPI');
+const tagApi = require('./routes/tagAPI');
 
 app.use('/api/v1', userApi);
 app.use('/api/v1',todoApi);
 app.use('/api/v1',emailApi);
+app.use('/api/v1',tutoApi);
+app.use('/api/v1',tagApi);
 
 
 app.listen(port, () => {

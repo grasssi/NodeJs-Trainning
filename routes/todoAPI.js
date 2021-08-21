@@ -59,4 +59,17 @@ router.get('/todos', async (req, res) => {
     }
   })
 
+  // affect tuto to tag
+router.put('/tutos/affect/:idTag/:idTuto', async (req, res) => {
+  try {
+      const updatedTuto = await Tag.findByIdAndUpdate(req.params.idTag, {$push : {tutos : req.params.idTuto}}, { new: true })
+      res.json(updatedTuto);
+  }
+  catch (err) {
+      console.log(err);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+})
+
+
 module.exports = router;
