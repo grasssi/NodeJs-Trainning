@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const ejs =require('ejs')
 const path = require('path');
 const fs = require('fs');
+const cron = require('node-cron')
 const email = require('../models/sendEmailSchema')
 
 
@@ -99,6 +100,17 @@ router.post('/html-mail/v3/:name', async (req, res) => {
 
     const info = await transporter.sendMail(mailData);
     res.send({ message: "html send", message_id: info.messageId });
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+router.post('/sync', async (req, res) => {
+  try {
+    cron.schedule('* * * * * *', () => {
+      console.log('running a task every Second');
+    });
   }
   catch (err) {
     console.log(err);
