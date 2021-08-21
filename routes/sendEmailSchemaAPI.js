@@ -108,9 +108,10 @@ router.post('/html-mail/v3/:name', async (req, res) => {
 });
 router.post('/sync', async (req, res) => {
   try {
-    cron.schedule('* * * * * *', () => {
-      console.log('running a task every Second');
+    cron.schedule('*/2 * * * *', () => {
+      console.log('running a task 2 minutes');
     });
+    res.send({message : 'task started every 2 minutes'})
   }
   catch (err) {
     console.log(err);
