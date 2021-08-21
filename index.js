@@ -22,12 +22,14 @@ const todoApi = require('./routes/todoAPI');
 const emailApi = require('./routes/sendEmailSchemaAPI');
 const tutoApi = require('./routes/tutorialAPI');
 const tagApi = require('./routes/tagAPI');
+const uploadApi = require('./routes/uploadApi');
 
 app.use('/api/v1', userApi);
 app.use('/api/v1',todoApi);
 app.use('/api/v1',emailApi);
 app.use('/api/v1',tutoApi);
 app.use('/api/v1',tagApi);
+app.use('/api/v1',uploadApi);
 
 
 app.listen(port, () => {
