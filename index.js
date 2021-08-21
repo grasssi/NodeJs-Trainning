@@ -10,6 +10,9 @@ require('./database/connect')
 //Morgan Config
 app.use(morgan('dev'))
 
+//Resolve Static Files
+app.use('/uploads',express.static('upload'))
+
 // config body parser
 app.use(express.json())
 
