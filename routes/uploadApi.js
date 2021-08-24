@@ -12,6 +12,7 @@ const myStorage = multer.diskStorage({
         cb(null, newFilename)
     }
 })
+//FileFilter Options
 const fileFilterFunction = (req, file, cb) => {
     const fileExt = path.extname(file.originalname);
     const allowedExt = ['.jpg', '.png', '.gif', '.jpeg']

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const bcrypt = require('bcrypt')
+const saltRounds = 10;
 const userSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: String,
@@ -12,7 +13,10 @@ const userSchema = new Schema({
     versionKey: false,
     timestamps: true
 });
-
-const User = mongoose.model('users', userSchema);
-
-module.exports = User;
+//  bcrypt.hash(userSchema.password, saltRounds, (err, hash) => {
+//      userSchema.password=hash
+//      // Store hash in your password DB.
+//     });
+    const User = mongoose.model('users', userSchema);
+    module.exports = User;
+    
