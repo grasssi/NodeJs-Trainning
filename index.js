@@ -26,6 +26,8 @@ const emailApi = require('./routes/sendEmailSchemaAPI');
 const tutoApi = require('./routes/tutorialAPI');
 const tagApi = require('./routes/tagAPI');
 const uploadApi = require('./routes/uploadApi');
+const authApi = require('./routes/authApi');
+
 
 app.use('/api/v1', userApi);
 app.use('/api/v1',todoApi);
@@ -33,6 +35,8 @@ app.use('/api/v1',emailApi);
 app.use('/api/v1',tutoApi);
 app.use('/api/v1',tagApi);
 app.use('/api/v1',uploadApi);
+app.use('/api/v1',authApi);
+
 
 
 app.listen(port, () => {

@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-// reuire model
+// require model
 const User = require('../models/userSchema')
+
+//  require bcrypt and create the salt
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 // get all user
@@ -104,25 +106,6 @@ router.get('/users-with-todos', async (req, res) => {
 })
 
 
-router.post("/login", async (req, res) => {
-    try {
-        const user = await User.findOne({ firstName: req.body.firstName });
-        if (user) {
-            const cmp = await bcrypt.compare(req.body.password, user.password);
-            if (cmp) {
-                //   ..... further code to maintain authentication like jwt or sessions
-                res.send("Auth Successful");
-            } else {
-                res.send("Wiirong username or password.");
-            }
-        } else {
-            res.send("Waarong username or password.");
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).send("Internal Server error Occured");
-    }
-});
 
 
 module.exports = router;
