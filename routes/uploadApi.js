@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer')
 const path = require('path')
+const passport = require('passport')
 //multer Storage Options
 const myStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -23,7 +24,7 @@ const Multer = multer({
     storage: myStorage, fileFilter: fileFilterFunction, limits: { fileSize: maxSize }
 });
 
-router.post('/upload', Multer.single('file'), (req, res) => {
+router.post('/upload',[ passport.authenticate('bearer', { session: false }), Multer.single('file')], (req, res) => {
     if (req.file !== undefined) {
         res.send({ message: 'File uploaded succefully' })
     } else {

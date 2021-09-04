@@ -7,6 +7,9 @@ const port = 3000
 // database connection 
 require('./database/connect')
 
+//bearerStrategy with passport
+require('./passport/bearerStrategy')
+
 //Morgan Config
 app.use(morgan('dev'))
 
